@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/homePage.css">
+  <link rel="stylesheet" href="./iconnew/iconfont.css">
+</head>
+<body>
+<div class="container">
+  <div class="rightSide">
+    <div class="header">
+       <div class="imgText">
+      </div>
+    </div>
+    <div class="chatBox">
+    </div>
+    <div class="chatBox_input">
+      <input type="text" placeholder="请输入消息..." id="user-input-value">
+      <div class="btn-send">
+        <button type="button" id="btn-send-message" class="sendButton">
+          发送
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="leftSide">
+    <div class="header">
+      <div class="nickName">
+
+      </div>
+      <ul class="nav_icons">
+        <li>
+          <span class="iconfont icon-haoyou" id="haoyou"></span>
+        </li>
+        <li>
+          <span class="iconfont icon-group" id="group"></span>
+        </li>
+        <li>
+          <span class="iconfont icon-tianjiayonghu" id="gerenzhongxin"></span>
+        </li>
+      </ul>
+    </div>
+    <div class="search_chat" id="addFriendModal">
+      <div>
+        <input type="text" id="friendName" placeholder="搜索..." class="searchFriendId">
+      </div>
+      <span>
+            <button class="submitFriend" id="submitFriend">添加</button>
+        </span>
+    </div>
+    <div class="chatList">
+    </div>
+  </div>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="./iconNew/iconfont.js"></script>
+<script src="./js/homePage.js"></script>
+</html>

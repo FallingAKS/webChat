@@ -1,0 +1,880 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    width: 100%; /* Full width */
+    height: calc(100vh - 40px); /* Full height minus 40px */
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    overflow: hidden; /* Prevents any overflows */
+}
+
+.container .leftSide {
+    flex: 0 0 30%; /* Flex shorthand for flex-grow, flex-shrink, and flex-basis */
+    background: #ffffff;
+    border-right: 1px solid #e0e0e0; /* Softer border color */
+    padding: 20px; /* Inner spacing */
+}
+
+.container .rightSide {
+    flex: 1; /* Takes the remaining space */
+    background: #f7f7f7; /* Lighter background for contrast */
+    position: relative;
+    overflow-y: auto; /* Allows scrolling */
+}
+
+.container .rightSide::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* Ensures background covers the area */
+    opacity: 0.06;
+}
+
+.header {
+    width: 100%;
+    height: 60px;
+    background: #cbd0ef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Increased padding for better spacing */
+}
+
+.userimg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area */
+}
+
+.nav_icons {
+    display: flex;
+    align-items: center; /* Aligns icons vertically */
+}
+
+.nav_icons li, .nav_icons li span {
+    list-style: none;
+    cursor: pointer;
+    color: #9fa09f; /* Softer color */
+    font-size: 1.5em;
+    margin-left: 22px;
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.nav_icons li:hover, .nav_icons li span:hover {
+    color: #ffffff; /* Color changes on hover */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack the columns on smaller screens */
+    }
+
+    .container .leftSide, .container .rightSide {
+        flex: 0 0 auto; /* Adjust sizing for stacked layout */
+    }
+
+    .header {
+        height: 50px; /* Adjust header size on smaller screens */
+    }
+}
+
+.nav_icons li span:hover {
+    color: #8c4848;
+    transition: color 0.3s ease; /* 添加平滑的颜色过渡效果 */
+}
+
+#IconSelect {
+    display: flex;
+    list-style: none;
+    cursor: pointer;
+    color: #8c4848;
+    font-size: 1.2em;
+    margin-left: 22px;
+    transition: transform 0.3s ease; /* 添加鼠标悬停时的变换效果 */
+}
+
+#IconSelect:hover {
+    transform: translateY(-2px); /* 轻微上移，给予点击反馈 */
+}
+
+.search_chat {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: #f6f6f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加阴影以提升层次感 */
+}
+
+.search_chat div {
+    width: 90%;
+}
+
+.search_chat div input {
+    width: 100%;
+    outline: none;
+    border: 1px solid #ddd; /* 添加轻微边框以增加对比度 */
+    background: #fff;
+    padding: 6px;
+    height: 38px;
+    border-radius: 30px;
+    font-size: 14px;
+    padding-left: 40px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 内阴影，增强深度感 */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.search_chat div input:focus {
+    border-color: #8c4848; /* 聚焦时增加边框颜色 */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 8px rgba(140, 72, 72, 0.5); /* 聚焦时增加阴影 */
+}
+
+.search_chat div input::placeholder {
+    color: #bbb;
+}
+
+.search_chat div span {
+    position: absolute;
+    left: 30px;
+    top: 14px;
+    font-size: 1.2em;
+}
+
+.chatList {
+    position: relative;
+    height: calc(100% - 110px);
+    overflow-y: auto;
+}
+
+.chatList .block {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 添加背景色过渡效果 */
+}
+
+.chatList .block:hover {
+    background-color: #f8f8f8; /* 鼠标悬停时改变背景色 */
+}
+
+.chatList .block .imgbx {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 10px; /* 添加右边距，避免头像和文本紧贴 */
+}
+
+.chatList .block .details {
+    position: relative;
+    width: calc(100% - 55px); /* 减去头像和右边距的宽度 */
+}
+
+.chatList .block .details .listHead {
+    display: flex;
+    justify-content: space-between;
+}
+
+.imgText {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold; /* 增加字体粗细，提升可读性 */
+}
+
+.imgText h4 {
+    font-weight: 400;
+    line-height: 1.2em;
+    margin-left: 15px;
+}
+
+.imgText h4 span {
+    font-size: 0.8em;
+    color: #555;
+}
+
+.chatBox {
+    position: relative;
+    width: 100%;
+    height: 668px;
+    padding: 50px;
+    overflow-y: auto;
+}
+
+.message {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.message p {
+    position: relative;
+    right: 0;
+    text-align: right;
+    max-width: 65%;
+    padding: 12px;
+    background: #dcf8c6;
+    border-radius: 0.9em;
+}
+
+.message p::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -12px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(
+            135deg,
+            #dcf8c6 0%,
+            #dcf8c6 50%,
+            transparent 50%,
+            transparent
+    );
+}
+
+.message p span {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85em;
+    opacity: 0.5;
+}
+
+.my_message {
+    justify-content: flex-end;
+}
+
+.friend_message {
+    justify-content: flex-start;
+}
+
+.friend_message p {
+    background: #fff;
+    text-align: left;
+}
+
+.message.friend_message p::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(
+            225deg,
+            #fff 0%,
+            #fff 50%,
+            transparent 50%,
+            transparent
+    );
+}
+
+/* Chat box styles */
+.chatBox_input {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    background: #f0f0f0;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chatBox_input span {
+    cursor: pointer;
+    font-size: 1.8em;
+    color: #51585c;
+}
+
+.chatBox_input input {
+    position: relative;
+    width: 90%;
+    margin: 0 20px;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    font-size: 1em;
+}
+
+/* Page styles */
+.mii-page {
+    width: 800px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #eee;
+    border-radius: 20px;
+    box-shadow: 0 18px 8px -4px rgba(0, 0, 0, 0.3);
+}
+
+.mii-page h1 {
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    font-size: 1.4em;
+    color: #222;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.mii-page h1 small {
+    font-size: 0.7em;
+    color: #666;
+}
+
+/* Container styles */
+.mii-container {
+    position: relative;
+    overflow: auto;
+    width: 100%;
+    box-shadow: 0 8px 3px -3px rgba(0, 0, 0, 0.3);
+    background-color: #d9d1c6;
+    border-radius: 20px;
+}
+
+.mii-container-top {
+    position: relative;
+    float: left;
+    width: 100%;
+    padding: 14px 16px 16px 90px;
+    min-height: 85px;
+}
+
+/* Container styles */
+.mii-container-top .flag {
+    float: left;
+    height: auto;
+    width: 50px;
+}
+
+.mii-container-bottom {
+    background-color: #d7bdae;
+    float: left;
+    padding: 1px 5px 4px 90px;
+    position: relative;
+    width: 100%;
+}
+
+/* Member styles */
+.single-member {
+    background-color: #fff;
+    margin: 30px 2.5%;
+    position: relative;
+    text-align: center;
+    /* width: 300px; Uncomment if fixed width is needed */
+}
+
+.member-image img {
+    max-width: 50%;
+    vertical-align: middle;
+}
+
+/* Text styles */
+h3 {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 10px 0 0;
+    text-transform: uppercase;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    margin: 0 0 15px;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    margin-bottom: 10px;
+    padding: 0 30px;
+}
+
+/* Name and star styles */
+span.mii-name {
+    color: #b78974;
+    font-size: 1.2em;
+    line-height: 1.2em;
+}
+
+span.mii-stars {
+    color: #0db5a2;
+    float: right;
+    font-size: 1.4em;
+    font-weight: 900;
+    line-height: 0.8em;
+    margin-right: 20px;
+    overflow: hidden;
+}
+
+.mii-stars img {
+    display: inline-block;
+    height: 20px;
+    padding: 4px 2px 0 0;
+    width: auto;
+}
+
+/* Image styles */
+.mii-image {
+    bottom: 0;
+    display: block;
+    height: auto;
+    left: 12px;
+    position: absolute;
+    width: 60px;
+}
+
+/* Gold star styles */
+.mii-gold-stars {
+    clear: both;
+    display: block;
+    float: left;
+    margin-left: 0;
+    position: relative;
+}
+
+.mii-gold-star {
+    background-size: 100%;
+    /* background-image: url("/uploads/151201/gold-star.png"); Uncomment and correct the path */
+    height: 26px;
+    position: absolute;
+    top: 6px;
+    width: 26px;
+}
+
+.mii-gold-star.first { left: 0; }
+.mii-gold-star.second { left: 10px; }
+.mii-gold-star.third { left: 20px; }
+
+.mii-gold-star-dots {
+    color: #d7bdae;
+    display: none;
+    left: 64px;
+    letter-spacing: 6px;
+    line-height: 0;
+    position: absolute;
+    top: 20px;
+}
+
+/* Base styles for social buttons */
+.social-touch button {
+    display: inline-block;
+    width: 200px;
+    height: 30px;
+    vertical-align: middle;
+    margin: 0 2px;
+    /* background-images: url(../images/social-icons.png); Uncomment to use */
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    transition: opacity 0.3s; /* Specify the property to transition for clarity */
+}
+
+/* Hover effect for social buttons */
+.social-touch a:hover {
+    opacity: 1;
+    transition: opacity 0.3s; /* Specify the property to transition for clarity */
+}
+
+/* Positioning for individual social buttons */
+.fb-touch {
+    background-position: 0 0;
+}
+
+.tweet-touch {
+    background-position: -35px 0;
+}
+
+.linkedin-touch {
+    background-position: -71px 0;
+}
+
+/* Colored icon variations */
+.icon-colored .fb-touch {
+    background-position: 0 -27px;
+}
+
+.icon-colored .tweet-touch {
+    background-position: -35px -27px;
+}
+
+.icon-colored .linkedin-touch {
+    background-position: -71px -27px;
+}
+
+/* Styles for a card-like effect */
+.effect-3 {
+    max-height: 302px;
+    min-height: 302px;
+    overflow: hidden;
+}
+
+.effect-3 h3 {
+    padding-top: 7px;
+    line-height: 33px;
+}
+
+/* Image container styles within the card */
+.effect-3 .member-image {
+    border-bottom: 5px solid #e5642b;
+    transition: all 0.4s; /* Transition all properties for a smoother effect */
+    height: 212px;
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Info container styles within the card */
+.effect-3 .member-info {
+    transition: all 0.4s; /* Transition all properties for a smoother effect */
+}
+
+/* Image styles within the image container */
+.effect-3 .member-image img {
+    width: 100%;
+    vertical-align: bottom;
+}
+
+/* Social touch bar styles within the card */
+.effect-3 .social-touch {
+    background-color: #e5642b;
+    position: absolute; /* Changed to absolute for better control */
+    left: 0;
+    bottom: 0;
+    padding: 5px 0;
+    width: 100%;
+    transition: all 0.4s; /* Transition all properties for a smoother effect */
+}
+
+/* Hover effect for the image container */
+.effect-3:hover .member-image {
+    border-bottom: 0;
+    border-radius: 0 0 50px 50px;
+    height: 81px;
+    overflow: hidden;
+    width: 109px;
+    transition: all 0.4s; /* Transition all properties for a smoother effect */
+}
+
+/* Hover effect for blocks */
+.block:hover {
+    background-color: #0db5a2;
+}
+
+/* Hover effect for block groups */
+.blockGroup:hover {
+    background-color: #0db5a2;
+}
+
+/* Styles for selected chat list blocks */
+.chatList .blockSelect,
+.chatList .blockGroupSelect {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    background-color: #0db5a2;
+}
+
+/* Image box styling for chat list blocks */
+.chatList .blockSelect .imgbx,
+.chatList .blockGroupSelect .imgbx {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+/* Detail section styling for chat list blocks */
+.chatList .blockSelect .details,
+.chatList .blockGroupSelect .details {
+    position: relative;
+    width: 100%;
+}
+
+/* Header list styling for chat list blocks */
+.chatList .blockSelect .details .listHead,
+.chatList .blockGroupSelect .details .listHead {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Button styling within the header list */
+.chatList .blockSelect .details .listHead button,
+.chatList .blockGroupSelect .details .listHead button {
+    display: inline;
+    justify-content: space-between;
+}
+
+/* Send button default styling */
+.sendButton {
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+/* Send button hover effect */
+.sendButton:hover {
+    background-color: #ab6e7b;
+}
+
+/* Change information section styling */
+.changeInformation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Button styling within the change information section */
+.changeInformation button {
+    width: 100px;
+    height: 50px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background: rgb(181, 177, 177);
+}
+
+/* Base styles for .changeInformation elements */
+.changeInformation button span {
+    font-size: 1em;
+    font-style: normal;
+}
+
+.changeInformation button:hover {
+    background: #0db5a2;
+}
+
+/* Styles for .changeInformationBox and its child elements */
+.changeInformationBox {
+    justify-content: center;
+    align-items: center;
+}
+
+.changeInformationBox div {
+    display: block;
+}
+
+.changeInformationBox input {
+    margin: 10px 0 0 20px; /* Combining margins for top and left */
+    width: 300px;
+    height: 30px;
+    border-radius: 20px;
+    background: #cab9b9;
+    border: none;
+    outline: none;
+}
+
+/* Styles for .newInformationBox and its button */
+.newInformationBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newInformationBox button {
+    margin-top: 100px;
+    width: 100px;
+    height: 50px;
+    border-radius: 30px;
+    background: rgb(181, 177, 177);
+    border: none;
+    cursor: pointer;
+}
+
+.newInformationBox button:hover {
+    background: #0db5a2;
+}
+
+/* Styles for .chatList common elements */
+.chatList .blockNewMessage,
+.chatList .blockDisable {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.chatList .blockNewMessage {
+    cursor: pointer;
+    background-color: #c53d2b;
+}
+
+/* Styles for .imgbx in .chatList */
+.chatList .blockNewMessage .imgbx,
+.chatList .blockDisable .imgbx {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+/* Styles for .details and its child .listHead in .chatList */
+.chatList .blockNewMessage .details {
+    position: relative;
+    width: 100%;
+}
+
+.chatList .blockNewMessage .details .listHead {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Button styles for .submitFriend and .addNewFrinend */
+.submitFriend,
+.addNewFrinend {
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.submitFriend {
+    width: 50px;
+    height: 30px;
+}
+
+.submitFriend:hover {
+    background: #ece8a2;
+}
+
+.addNewFrinend {
+    width: 70px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.addNewFrinend:hover {
+    background: #009688;
+}
+
+/* Base styles for chat list items */
+.chatList .blockDisable .details,
+.chatList .blockGroup .details {
+    position: relative;
+    width: 100%;
+}
+
+/* Head of the list with flexbox layout */
+.chatList .blockDisable .details .listHead,
+.chatList .blockGroup .details .listHead {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Common styles for operation buttons */
+.operation,
+.deleteFriend,
+.deleteGroup {
+    display: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px; /* Assuming you want the same border-radius for consistency */
+    height: 40px;
+}
+
+.operation {
+    width: 100px;
+}
+
+.operation button {
+    width: 50px;
+    height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Hover states for buttons */
+.operation button:hover,
+.deleteFriend:hover,
+.deleteGroup:hover {
+    background: #009688;
+}
+
+/* Hover state for message to show operation */
+.message:hover .operation {
+    display: flex;
+}
+
+/* Delete friend/group specific styles */
+.deleteFriend,
+.deleteGroup {
+    width: 70px;
+}
+
+/* Hover states to display delete options */
+.block:hover .deleteFriend,
+.blockGroup:hover .deleteGroup {
+    display: inline;
+}
+
+/* Styles for blockGroup */
+.chatList .blockGroup {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+}
+
+/* Image box within blockGroup */
+.chatList .blockGroup .imgbx {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+    border-radius: 50%;
+}

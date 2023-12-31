@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="./js/index.js"></script>  
+</head>
+
+<body>
+  <div id="wrapper" class="login-page">
+    <h1 style="color: rgb(199, 226, 248); text-align: center;">网页聊天系统</h1>
+    <div id="fform" class="form">
+      <form id="register_form" class="register-form">
+        <input type="text" placeholder="昵称" id="user_name" />
+        <input type="password" placeholder="密码" id="new_password" />
+        <div class="gender-options">
+          <span class="gender-label" style="min-width: 80px;">性别： </span>
+          <input type="radio" name="sex" id="male" value="男" checked style="max-width: 50px;">
+          <label for="male" style="max-width: 50px;">男</label>
+          <span class="gender-label" style="min-width: 20px;"></span>
+          <input type="radio" name="sex" id="female" value="女" style="max-width: 50px;">
+          <label for="female" style="max-width: 50px;">女</label>
+        </div>
+        <button id="create">创建账户</button>
+        <p class="message">已经有了一个账户? <a href="#" id="showLogin">立刻登录</a></p>
+      </form>
+
+      <form id="login_form" class="login-form">
+        <input type="text" placeholder="用户名" id="name" />
+        <input type="password" placeholder="密码" id="password" />
+        <button id="login">登录</button>
+        <p class="message">还没有账户? <a href="#" id="showRegister">立刻创建</a></p>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
